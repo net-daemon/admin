@@ -1,7 +1,7 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const app = express();
-const path = "";
+const path = process.env.ADMINPATH || "";
 const port = 1337;
 
 app.use(`${path}/`, express.static("build"));
@@ -28,6 +28,4 @@ app.get(`${path}/api/settings`, async (req, res) => {
   }
 });
 
-app.listen(port, () =>
-  console.log(`Running NetDaemon Admin`)
-);
+app.listen(port, () => console.log(`Running NetDaemon Admin`));
