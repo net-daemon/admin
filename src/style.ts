@@ -67,6 +67,7 @@ export const NetDaemonStyle = css`
     width: 50%;
     max-width: 600px;
     height: 100vh;
+    font-family: Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 
   paper-card {
