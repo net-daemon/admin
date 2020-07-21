@@ -5,6 +5,7 @@ const path = process.env.ADMINPATH || "";
 const port = 1337;
 
 app.use(`${path}/`, express.static("build"));
+app.use(`${path}/favicon.png`, express.static("build/favicon.png"));
 
 app.get(`${path}/api/apps`, async (req, res) => {
   try {
