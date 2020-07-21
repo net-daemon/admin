@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: NetDaemon issue tracker
+    url: https://github.com/net-daemon/netdaemon/issues
+    about: For issues and feature requests related to NetDaemon itself
+  - name: NetDaemon Documentation
+    url: https://netdaemon.xyz
+    about: The documentation for NetDaemon
+  - name: NetDaemon Discord server
+    url: https://discord.gg/K3xwfcX
+    about: For questions about NetDaemon
