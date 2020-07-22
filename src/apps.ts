@@ -41,9 +41,11 @@ class NetDaemonApps extends LitElement {
                 })}
               </div>`
             : ""}
-          <!--<div class="card-actions">
-            <mwc-button>${app.isEnabled ? "disable" : "enable"}</mwc-button>
-          </div>-->
+          <div class="card-actions">
+            <mwc-button disabled
+              >${app.isEnabled ? "disable" : "enable"}</mwc-button
+            >
+          </div>
         </paper-card>`;
       })}
     </div>`;

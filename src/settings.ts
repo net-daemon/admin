@@ -52,9 +52,9 @@ class NetDaemonSettings extends LitElement {
           label="Project directory"
           .value=${this.settings.daemonSettings.projectFolder}
         ></mwc-textfield>
-        <!--<div class="card-actions">
-          <mwc-button>update</mwc-button>
-        </div>-->
+        <div class="card-actions">
+          <mwc-button disabled>update</mwc-button>
+        </div>
       </paper-card>
 
       <paper-card>
@@ -86,11 +86,11 @@ class NetDaemonSettings extends LitElement {
             ?checked=${this.settings.homeAssistantSettings.ssl}
           ></mwc-switch>
         </mwc-formfield>
-        <!--<div class="card-actions">
-          <mwc-button>update</mwc-button>
-        </div>-->
+        <div class="card-actions">
+          <mwc-button disabled>update</mwc-button>
+        </div>
       </paper-card>
-    </div>`;
+    </div> `;
   }
 
   private _goBack(): void {

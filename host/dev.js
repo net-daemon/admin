@@ -12,7 +12,7 @@ app.get("/api/apps", (req, res) =>
     {
       id: "helper_app",
       dependencies: ["global_app"],
-      isEnabled: true,
+      isEnabled: false,
     },
     {
       id: "my_app",
