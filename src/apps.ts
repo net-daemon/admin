@@ -29,7 +29,7 @@ class NetDaemonApps extends LitElement {
       ${this.apps.map((app) => {
         return html`<paper-card
           ><div class="header">
-            <h2>${app.id.toUpperCase().replace("_", " ")}</h2>
+            <h2>${app.id.toUpperCase().replace(/_/g, " ")}</h2>
           </div>
           <div class="appdetails">
             ${app.description
