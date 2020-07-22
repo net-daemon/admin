@@ -28,19 +28,26 @@ class NetDaemonApps extends LitElement {
       </div>
       ${this.apps.map((app) => {
         return html`<paper-card
-          ><div class="header"><h2>${app.id.toUpperCase()}</h2></div>
-          ${app.dependencies?.length > 0
-            ? html`<div class="dpendencies">
-                Dependencies:
-                ${app.dependencies.map((dependency) => {
-                  return html`<div class="dependency">
-                    <div class="dot">•</div>
-                    ${dependency}
-                  </div>`;
-                  ``;
-                })}
-              </div>`
-            : ""}
+          ><div class="header">
+            <h2>${app.id.toUpperCase().replace("_", " ")}</h2>
+          </div>
+          <div class="appdetails">
+            ${app.description
+              ? html`<div class="description">${app.description}</div>`
+              : ""}
+            ${app.dependencies?.length > 0
+              ? html`<div class="dpendencies">
+                  Dependencies:
+                  ${app.dependencies.map((dependency) => {
+                    return html`<div class="dependency">
+                      <div class="dot">•</div>
+                      ${dependency}
+                    </div>`;
+                    ``;
+                  })}
+                </div>`
+              : ""}
+          </div>
           <div class="card-actions">
             <mwc-button disabled
               >${app.isEnabled ? "disable" : "enable"}</mwc-button
@@ -68,8 +75,6 @@ class NetDaemonApps extends LitElement {
       NetDaemonStyle,
       css`
         .dpendencies {
-          padding: 0 0 8px 12px;
-          margin-top: -24px;
           opacity: 0.8;
         }
         paper-card .header {
@@ -86,6 +91,10 @@ class NetDaemonApps extends LitElement {
           font-size: 32px;
           color: var(--netdaemon-theme-color);
           padding-right: 4px;
+        }
+        .appdetails {
+          margin-top: -24px;
+          padding: 0 0 8px 12px;
         }
       `,
     ];

@@ -1,5 +1,6 @@
 export interface App {
   id: string;
+  description?: string;
   dependencies: string[];
   isEnabled: boolean;
 }

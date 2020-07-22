@@ -38,6 +38,7 @@ export const NetDaemonStyle = css`
 
   iron-icon,
   .back,
+  .description,
   .footer {
     color: var(--paper-item-body-secondary-color, var(--secondary-text-color));
   }
