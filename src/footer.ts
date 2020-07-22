@@ -25,7 +25,7 @@ class NetDaemonFooter extends LitElement {
           bottom: 0;
           position: absolute;
           text-align: center;
-          margin-bottom: 12px;
+          margin: 12px 0;
           font-style: italic;
           font-size: 12px;
         }
