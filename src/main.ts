@@ -9,6 +9,7 @@ import {
 import "./apps";
 import "./settings";
 import "./entry";
+import "./footer";
 
 import { App, Settings, getApps, getSettings } from "./data";
 import { NetDaemonStyle } from "./style";
@@ -38,20 +39,21 @@ class NetDaemonMain extends LitElement {
 
   protected render(): TemplateResult | void {
     return html`<div class="maincontent">
-      ${this.page === ""
-        ? html` <netdaemon-entry
-            .error=${this.error}
-            .settings=${this.settings}
-            .apps=${this.apps}
-          ></netdaemon-entry>`
-        : this.page === "apps"
-        ? html`<netdaemon-apps .apps=${this.apps}></netdaemon-apps>`
-        : this.page === "settings"
-        ? html`<netdaemon-settings
-            .settings=${this.settings}
-          ></netdaemon-settings>`
-        : ""}
-    </div>`;
+        ${this.page === ""
+          ? html` <netdaemon-entry
+              .error=${this.error}
+              .settings=${this.settings}
+              .apps=${this.apps}
+            ></netdaemon-entry>`
+          : this.page === "apps"
+          ? html`<netdaemon-apps .apps=${this.apps}></netdaemon-apps>`
+          : this.page === "settings"
+          ? html`<netdaemon-settings
+              .settings=${this.settings}
+            ></netdaemon-settings>`
+          : ""}
+      </div>
+      <netdaemon-footer></netdaemon-footer>`;
   }
 
   static get styles() {
