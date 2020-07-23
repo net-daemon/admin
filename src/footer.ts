@@ -23,11 +23,13 @@ class NetDaemonFooter extends LitElement {
         .footer {
           width: 100%;
           bottom: 0;
+          height: 16px;
           position: absolute;
           text-align: center;
-          margin: 12px 0;
+          padding: 12px 0;
           font-style: italic;
           font-size: 12px;
+          background-color: var(--netdaemon-theme-background-color);
         }
       `,
     ];
