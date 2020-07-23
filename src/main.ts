@@ -62,8 +62,8 @@ class NetDaemonMain extends LitElement {
       css`
         .maincontent {
           width: 100%;
-          height: 100%;
           overflow-y: auto;
+          height: calc(100vh - 40px);
           background-color: var(--netdaemon-theme-background-color);
         }
       `,
