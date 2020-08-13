@@ -2,9 +2,16 @@ import { css } from "lit-element";
 
 export const NetDaemonStyle = css`
   :host {
-    --netdaemon-theme-color: #a1029e;
-    --netdaemon-theme-color-error: #cf1919;
-    --netdaemon-theme-background-color: #f8f8f8;
+    --netdaemon-theme-color: var(--primary-color, #a1029e);
+    --netdaemon-theme-color-error: var(--error-color, #cf1919);
+    --netdaemon-theme-background-color-card: var(
+      --card-background-color,
+      #ffffff
+    );
+    --netdaemon-theme-background-color: var(
+      --primary-background-color,
+      #f8f8f8
+    );
   }
 
   .header {
@@ -60,7 +67,7 @@ export const NetDaemonStyle = css`
   }
 
   a {
-    color: black;
+    color: var(--primary-text-color);
     text-decoration: none;
   }
 
@@ -70,6 +77,7 @@ export const NetDaemonStyle = css`
     max-width: 600px;
     height: 100vh;
     font-family: Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--primary-text-color);
   }
 
   paper-card {
@@ -78,6 +86,7 @@ export const NetDaemonStyle = css`
     margin-bottom: 16px;
     border-radius: 10px;
     opacity: 0.9;
+    background-color: var(--netdaemon-theme-background-color-card);
   }
 
   mwc-button {

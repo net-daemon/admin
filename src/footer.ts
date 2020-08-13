@@ -29,7 +29,7 @@ class NetDaemonFooter extends LitElement {
           padding: 12px 0;
           font-style: italic;
           font-size: 12px;
-          background-color: var(--netdaemon-theme-background-color);
+          background-color: var(--netdaemon-theme-background-color-card);
         }
       `,
     ];
