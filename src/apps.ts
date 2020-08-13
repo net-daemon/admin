@@ -96,6 +96,9 @@ class NetDaemonApps extends LitElement {
           margin-top: -24px;
           padding: 0 0 8px 12px;
         }
+        .description {
+          white-space: pre-line;
+        }
       `,
     ];
   }
