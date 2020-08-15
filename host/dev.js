@@ -9,7 +9,7 @@ const apps = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed venenatis efficitur diam, at convallis sapien malesuada a.\nNulla vitae augue cursus, ultrices felis in, congue elit.\nVestibulum pulvinar, turpis ac vulputate ultricies, libero ex iaculis nunc, et interdum arcu orci vitae lorem.\nAliquam facilisis vitae neque ultrices malesuada.\nCurabitur rhoncus dui odio, sit amet convallis purus aliquet a.\nDonec dictum neque nec urna iaculis sagittis.\nIn iaculis lorem et lacinia fringilla.\nDonec viverra tincidunt ligula et fringilla.\nProin nec orci nec purus vulputate finibus sed et metus.\nDonec hendrerit, ipsum laoreet molestie varius, neque enim scelerisque ex, a rhoncus purus justo eu arcu.",
     isEnabled: true,
-    nextScheduledEvent: null,
+    nextScheduledEvent: "2020-08-15T21:29:58.9616839+02:00",
     lastErrorMessage: null,
   },
   {
@@ -25,7 +25,7 @@ const apps = [
     dependencies: ["global_app", "helper_app"],
     isEnabled: true,
     nextScheduledEvent: null,
-    lastErrorMessage: null,
+    lastErrorMessage: "Oh boy!\nYou really screwed up now!",
   },
 ];
 
@@ -53,7 +53,6 @@ app.post("/api/app/state/:app/disable", (req, res) => {
       app.isEnabled = false;
     }
   });
-  console.log(apps);
   res.json({});
 });
 app.post("/api/app/state/:app/enable", (req, res) => {
@@ -62,7 +61,6 @@ app.post("/api/app/state/:app/enable", (req, res) => {
       app.isEnabled = true;
     }
   });
-  console.log(apps);
   res.json({});
 });
 

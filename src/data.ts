@@ -1,6 +1,8 @@
 export interface App {
   id: string;
   description?: string;
+  nextScheduledEvent?: string;
+  lastErrorMessage?: string;
   dependencies: string[];
   isEnabled: boolean;
 }

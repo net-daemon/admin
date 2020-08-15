@@ -1,3 +1,4 @@
+import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 import commonjs from "rollup-plugin-commonjs";
 import nodeResolve from "rollup-plugin-node-resolve";
@@ -10,6 +11,7 @@ const opts_terser = {};
 
 const AwesomePlugins = [
   progress(),
+  json(),
   nodeResolve(),
   commonjs(),
   typescript(),
