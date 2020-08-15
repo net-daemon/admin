@@ -11,7 +11,7 @@ import "@polymer/iron-icon";
 import "@polymer/iron-icons";
 import "@polymer/paper-card";
 
-import { App } from "./data";
+import { App, enableApp, disableApp } from "./data";
 import { NetDaemonStyle } from "./style";
 
 @customElement("netdaemon-apps")
@@ -49,13 +49,23 @@ class NetDaemonApps extends LitElement {
               : ""}
           </div>
           <div class="card-actions">
-            <mwc-button disabled
+            <mwc-button @click=${() => this._toggleApp(app)}
               >${app.isEnabled ? "disable" : "enable"}</mwc-button
             >
           </div>
         </paper-card>`;
       })}
     </div>`;
+  }
+
+  async _toggleApp(app: App): Promise<void> {
+    let result: App[];
+    if (app.isEnabled) {
+      result = await disableApp(app.id);
+    } else {
+      result = await enableApp(app.id);
+    }
+    this.apps = result;
   }
 
   private _goBack(): void {
