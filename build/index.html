@@ -5,4 +5,9 @@
 </head>
 <body style="height: 100%; width: 100%; margin: 0;">
   <netdaemon-main></netdaemon-main>
+  <script>
+    document.querySelector(
+      "netdaemon-main"
+    ).style.cssText = window.top.document.querySelector("html").style.cssText;
+  </script>
 </body>
