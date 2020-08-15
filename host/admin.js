@@ -33,7 +33,7 @@ app.post(`${path}/api/app/state/:app/disable`, async (req, res) => {
   try {
     await fetch(
       `http://127.0.0.1:5000/api/app/state/${req.params.app}/disable`,
-      { method: "post" }
+      { method: "post", data: {} }
     );
     res.json({});
   } catch (error) {
@@ -46,7 +46,7 @@ app.post(`${path}/api/app/state/:app/enable`, async (req, res) => {
   try {
     await fetch(
       `http://127.0.0.1:5000/api/app/state/${req.params.app}/enable`,
-      { method: "post" }
+      { method: "post", data: {} }
     );
     res.json({});
   } catch (error) {
