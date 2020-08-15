@@ -46,6 +46,7 @@ export const NetDaemonStyle = css`
   iron-icon,
   .back,
   .description,
+  .next,
   .footer {
     color: var(--paper-item-body-secondary-color, var(--secondary-text-color));
   }
@@ -75,7 +76,7 @@ export const NetDaemonStyle = css`
     margin: auto;
     width: 50%;
     max-width: 600px;
-    height: 100vh;
+    height: calc(100vh - 40px);
     font-family: Roboto, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--primary-text-color);
   }

@@ -1,6 +1,8 @@
 export interface App {
   id: string;
   description?: string;
+  nextScheduledEvent?: string;
+  lastErrorMessage?: string;
   dependencies: string[];
   isEnabled: boolean;
 }
@@ -38,4 +40,28 @@ export const getSettings = async () => {
     throw new Error(settings.message);
   }
   return settings as Settings;
+};
+
+export const enableApp = async (app: string) => {
+  await fetch(`./api/app/state/${app}/enable`, {
+    method: "post",
+  });
+  const result = await fetch("./api/apps");
+  const apps = (await result.json()) as any;
+  if (apps.errno) {
+    throw new Error(apps.message);
+  }
+  return apps as App[];
+};
+
+export const disableApp = async (app: string) => {
+  await fetch(`./api/app/state/${app}/disable`, {
+    method: "post",
+  });
+  const result = await fetch("./api/apps");
+  const apps = (await result.json()) as any;
+  if (apps.errno) {
+    throw new Error(apps.message);
+  }
+  return apps as App[];
 };

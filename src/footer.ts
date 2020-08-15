@@ -12,7 +12,8 @@ import { NetDaemonStyle } from "./style";
 class NetDaemonFooter extends LitElement {
   protected render(): TemplateResult | void {
     return html`<div class="footer">
-      This version of NetDaemon Admin is locked in read-only mode
+      This version of NetDaemon Admin is not fully featured, some actions are in
+      read-only mode
     </div>`;
   }
 

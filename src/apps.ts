@@ -11,8 +11,13 @@ import "@polymer/iron-icon";
 import "@polymer/iron-icons";
 import "@polymer/paper-card";
 
-import { App } from "./data";
+import { App, enableApp, disableApp } from "./data";
 import { NetDaemonStyle } from "./style";
+
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo("en-US");
 
 @customElement("netdaemon-apps")
 class NetDaemonApps extends LitElement {
@@ -47,15 +52,44 @@ class NetDaemonApps extends LitElement {
                   })}
                 </div>`
               : ""}
+            ${app.nextScheduledEvent
+              ? html`<div class="next" title="${app.nextScheduledEvent}">
+                  Next scheduled event
+                  ${this._relativeTime(app.nextScheduledEvent)}
+                </div>`
+              : ""}
+            ${app.lastErrorMessage
+              ? html`<div class="error">
+                  <details
+                    ><summary>Expaned to see the latest error</summary
+                    >${app.lastErrorMessage}</details
+                  >
+                </div>`
+              : ""}
           </div>
           <div class="card-actions">
-            <mwc-button disabled
+            <mwc-button @click=${() => this._toggleApp(app)}
               >${app.isEnabled ? "disable" : "enable"}</mwc-button
             >
           </div>
         </paper-card>`;
       })}
     </div>`;
+  }
+
+  private async _toggleApp(app: App): Promise<void> {
+    let result: App[];
+    if (app.isEnabled) {
+      result = await disableApp(app.id);
+    } else {
+      result = await enableApp(app.id);
+    }
+    this.apps = result;
+  }
+
+  private _relativeTime(next: string): string {
+    const nextEvent = new Date(next);
+    return timeAgo.format(nextEvent.getTime());
   }
 
   private _goBack(): void {
@@ -96,8 +130,20 @@ class NetDaemonApps extends LitElement {
           margin-top: -24px;
           padding: 0 0 8px 12px;
         }
-        .description {
+        .description,
+        .error {
           white-space: pre-line;
+        }
+        .error {
+          margin-top: 8px;
+          color: var(--error-color);
+        }
+        .error summary {
+          cursor: pointer;
+        }
+
+        .next {
+          padding: 8px 0;
         }
       `,
     ];

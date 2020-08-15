@@ -29,4 +29,30 @@ app.get(`${path}/api/settings`, async (req, res) => {
   }
 });
 
+app.post(`${path}/api/app/state/:app/disable`, async (req, res) => {
+  try {
+    await fetch(
+      `http://127.0.0.1:5000/api/app/state/${req.params.app}/disable`,
+      { method: "post", data: {} }
+    );
+    res.json({});
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+
+app.post(`${path}/api/app/state/:app/enable`, async (req, res) => {
+  try {
+    await fetch(
+      `http://127.0.0.1:5000/api/app/state/${req.params.app}/enable`,
+      { method: "post", data: {} }
+    );
+    res.json({});
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+
 app.listen(port, () => console.log(`Running NetDaemon Admin`));
