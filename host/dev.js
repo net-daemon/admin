@@ -43,6 +43,7 @@ let settings = {
 
 const wss = new WebSocket.Server({
   port: 5000,
+  path: "/api/ws",
 });
 
 wss.on("connection", function connection(ws) {
