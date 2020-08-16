@@ -80,8 +80,11 @@ class NetDaemonApps extends LitElement {
   }
 
   private _toggleApp(app: App): void {
-    app.isEnabled = !app.isEnabled;
-    appSettings(this.webSocket, app.id, { isEnabled: app.isEnabled });
+    appSettings(this.webSocket, app.id, { isEnabled: !app.isEnabled });
+    this.apps = this.apps.map((app) => {
+      app.isEnabled = !app.isEnabled;
+      return app;
+    });
   }
 
   private _relativeTime(next: string): string {
