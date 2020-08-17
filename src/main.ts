@@ -16,15 +16,19 @@ import { NetDaemonStyle } from "./style";
 @customElement("netdaemon-main")
 class NetDaemonMain extends LitElement {
   @property() public page = "";
-  @property() public webSocket: WebSocket = new WebSocket(
-    "ws://localhost:1337"
-  );
+  @property({ attribute: false }) public webSocket!: WebSocket;
   @property({ attribute: false }) public apps: App[] = [];
   @property({ attribute: false }) public settings: Settings;
   @property() public error?: any;
 
   public async connectedCallback() {
     super.connectedCallback();
+
+    this.webSocket = new WebSocket(
+      `${window.location.protocol === "https:" ? "wss" : "ws"}://${
+        window.location.host
+      }${window.location.pathname}`
+    );
 
     this.addEventListener("set-page", (ev) => this._setPage(ev as CustomEvent));
 
