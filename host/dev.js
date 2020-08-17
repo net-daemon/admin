@@ -1,8 +1,6 @@
-const express = require("express");
-const app = express();
-const port = 5000;
+const WebSocket = require("ws");
 
-const apps = [
+let apps = [
   {
     id: "global_app",
     dependencies: [],
@@ -29,7 +27,7 @@ const apps = [
   },
 ];
 
-const settings = {
+let settings = {
   daemonSettings: {
     generateEntities: true,
     sourceFolder: "/workspaces/netdaemon/exampleapps",
@@ -43,27 +41,28 @@ const settings = {
   },
 };
 
-app.get("/api/apps", (req, res) => res.send(apps));
-
-app.get("/api/settings", (req, res) => res.send(settings));
-
-app.post("/api/app/state/:app/disable", (req, res) => {
-  apps.forEach((app) => {
-    if (app.id === req.params.app) {
-      app.isEnabled = false;
-    }
-  });
-  res.json({});
-});
-app.post("/api/app/state/:app/enable", (req, res) => {
-  apps.forEach((app) => {
-    if (app.id === req.params.app) {
-      app.isEnabled = true;
-    }
-  });
-  res.json({});
+const wss = new WebSocket.Server({
+  port: 5000,
+  path: "/api/ws",
 });
 
-app.listen(port, () =>
-  console.log(`Running Dummy NetDaemon backend at http://localhost:${port}`)
-);
+wss.on("connection", function connection(ws) {
+  ws.on("message", function incoming(message) {
+    const _message = JSON.parse(message);
+    if (_message.type === "apps") {
+      _message.data = apps;
+      ws.send(JSON.stringify(_message));
+    } else if (_message.type === "settings") {
+      _message.data = settings;
+      ws.send(JSON.stringify(_message));
+    } else if (_message.type === "app") {
+      apps = apps.map((app) => {
+        if (app.id === _message.app) {
+          app = { ...app, ..._message.data };
+        }
+        return app;
+      });
+      ws.send(JSON.stringify({ type: "apps", data: apps }));
+    }
+  });
+});

@@ -3,38 +3,46 @@ import {
   customElement,
   TemplateResult,
   html,
-  property,
   css,
+  property,
 } from "lit-element";
 import "./apps";
 import "./settings";
 import "./entry";
 import "./footer";
-
-import { App, Settings, getApps, getSettings } from "./data";
+import { App, Settings, requestApps, requestSettings } from "./data";
 import { NetDaemonStyle } from "./style";
 
 @customElement("netdaemon-main")
 class NetDaemonMain extends LitElement {
   @property() public page = "";
+  @property() public webSocket: WebSocket = new WebSocket(
+    "ws://localhost:1337"
+  );
   @property({ attribute: false }) public apps: App[] = [];
   @property({ attribute: false }) public settings: Settings;
   @property() public error?: any;
 
   public async connectedCallback() {
     super.connectedCallback();
+
     this.addEventListener("set-page", (ev) => this._setPage(ev as CustomEvent));
+
     this.page = window.location.hash.replace("#", "") || "";
-    try {
-      this.apps = await getApps();
-    } catch (err) {
-      this.error = err;
-    }
-    try {
-      this.settings = await getSettings();
-    } catch (err) {
-      this.error = err;
-    }
+    this.webSocket.onopen = () => {
+      requestApps(this.webSocket);
+      requestSettings(this.webSocket);
+    };
+    this.webSocket.onmessage = (ev) => {
+      const message = JSON.parse(ev.data);
+      console.log(message);
+      if (message.type === "apps") {
+        this.apps = message.data;
+      } else if (message.type === "settings") {
+        this.settings = message.data;
+      }
+      this.requestUpdate();
+    };
   }
 
   protected render(): TemplateResult | void {
@@ -46,7 +54,10 @@ class NetDaemonMain extends LitElement {
               .apps=${this.apps}
             ></netdaemon-entry>`
           : this.page === "apps"
-          ? html`<netdaemon-apps .apps=${this.apps}></netdaemon-apps>`
+          ? html`<netdaemon-apps
+              .apps=${this.apps}
+              .webSocket=${this.webSocket}
+            ></netdaemon-apps>`
           : this.page === "settings"
           ? html`<netdaemon-settings
               .settings=${this.settings}

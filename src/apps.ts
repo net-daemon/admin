@@ -11,7 +11,7 @@ import "@polymer/iron-icon";
 import "@polymer/iron-icons";
 import "@polymer/paper-card";
 
-import { App, enableApp, disableApp } from "./data";
+import { App, appSettings } from "./data";
 import { NetDaemonStyle } from "./style";
 
 import TimeAgo from "javascript-time-ago";
@@ -23,6 +23,8 @@ const timeAgo = new TimeAgo("en-US");
 class NetDaemonApps extends LitElement {
   @property({ attribute: false }) public apps: App[] = [];
 
+  @property() public webSocket: WebSocket;
+
   protected render(): TemplateResult | void {
     return html`<div class="content">
       <div class="back" @click=${this._goBack}>
@@ -31,7 +33,7 @@ class NetDaemonApps extends LitElement {
       <div class="header">
         <h1>Apps</h1>
       </div>
-      ${this.apps.map((app) => {
+      ${this.apps?.map((app) => {
         return html`<paper-card
           ><div class="header">
             <h2>${app.id.toUpperCase().replace(/_/g, " ")}</h2>
@@ -52,7 +54,7 @@ class NetDaemonApps extends LitElement {
                   })}
                 </div>`
               : ""}
-            ${app.nextScheduledEvent
+            ${app.nextScheduledEvent && app.isEnabled
               ? html`<div class="next" title="${app.nextScheduledEvent}">
                   Next scheduled event
                   ${this._relativeTime(app.nextScheduledEvent)}
@@ -77,14 +79,12 @@ class NetDaemonApps extends LitElement {
     </div>`;
   }
 
-  private async _toggleApp(app: App): Promise<void> {
-    let result: App[];
-    if (app.isEnabled) {
-      result = await disableApp(app.id);
-    } else {
-      result = await enableApp(app.id);
-    }
-    this.apps = result;
+  private _toggleApp(app: App): void {
+    appSettings(this.webSocket, app.id, { isEnabled: !app.isEnabled });
+    this.apps = this.apps.map((app) => {
+      app.isEnabled = !app.isEnabled;
+      return app;
+    });
   }
 
   private _relativeTime(next: string): string {
