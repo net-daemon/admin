@@ -45,19 +45,19 @@ function connect() {
 
   ws.onclose = function (e) {
     console.log(
-      "Admin GUI: Socket is closed. Reconnect will be attempted in 5 seconds.",
+      "Admin GUI: Reconnect will be attempted in 10 seconds.",
       e.reason
     );
     setTimeout(function () {
       connect();
-    }, 5000);
+    }, 10000);
   };
 
   ws.onerror = function (err) {
     console.error(
-      "Admin GUI: NetDaemon API not available, error: ",
+      "Admin GUI: NetDaemon API not available yet, error: ",
       err.message,
-      "Closing socket"
+      "Closing and retrying..."
     );
     ws.close();
   };
