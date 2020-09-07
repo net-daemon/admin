@@ -20,7 +20,7 @@ wss.on("connection", function connection(ws) {
   frontendWS = ws;
   ws.on("message", function incoming(message) {
     const _message = JSON.parse(message);
-    console.log(`received message from frontend:`, _message.type);
+    console.log(`Admin GUI: received message from frontend:`, _message.type);
     if (NetDaemonWS) {
       NetDaemonWS.send(message);
     }
@@ -32,27 +32,33 @@ function connect() {
   ws.onopen = function () {
     NetDaemonWS = ws;
     server.on("request", app);
-    server.listen(port, () => console.log(`Running NetDaemon Admin`));
+    server.listen(port, () =>
+      console.log(`Admin GUI: Running NetDaemon Admin`)
+    );
   };
 
   ws.on("message", function incoming(message) {
     const _message = JSON.parse(message);
-    console.log(`received message from NetDaemon:`, _message.type);
+    console.log(`Admin GUI: received message from NetDaemon:`, _message.type);
     frontendWS.send(message);
   });
 
   ws.onclose = function (e) {
     console.log(
-      "Socket is closed. Reconnect will be attempted in 1 second.",
+      "Admin GUI: Socket is closed. Reconnect will be attempted in 5 seconds.",
       e.reason
     );
     setTimeout(function () {
       connect();
-    }, 1000);
+    }, 5000);
   };
 
   ws.onerror = function (err) {
-    console.error("Socket encountered error: ", err.message, "Closing socket");
+    console.error(
+      "Admin GUI: NetDaemon API not available, error: ",
+      err.message,
+      "Closing socket"
+    );
     ws.close();
   };
 }
