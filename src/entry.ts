@@ -42,7 +42,7 @@ class NetDaemonEntry extends LitElement {
               <iron-icon icon="build"></iron-icon>
               <paper-item-body two-line>
                 <div>Settings</div>
-                <div secondary>Deamon and Home Assistant settings</div>
+                <div secondary>Daemon and Home Assistant settings</div>
               </paper-item-body>
               <iron-icon icon="chevron-right"></iron-icon>
             </paper-item>
