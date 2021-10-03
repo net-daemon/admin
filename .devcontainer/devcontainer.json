@@ -1,9 +1,9 @@
 {
   "name": "NetDaemon Admin",
-  "image": "ludeeus/container:frontend",
+  "image": "ghcr.io/ludeeus/devcontainer/frontend:stable",
   "context": "..",
   "appPort": ["1337:1337"],
-  "postCreateCommand": "apk add make && make init",
+  "postCreateCommand": "make init",
   "runArgs": ["-v", "${env:HOME}${env:USERPROFILE}/.ssh:/tmp/.ssh"],
   "extensions": [
     "github.vscode-pull-request-github",

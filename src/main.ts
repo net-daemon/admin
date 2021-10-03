@@ -39,7 +39,6 @@ class NetDaemonMain extends LitElement {
     };
     this.webSocket.onmessage = (ev) => {
       const message = JSON.parse(ev.data);
-      console.log(message);
       if (message.type === "apps") {
         this.apps = message.data;
       } else if (message.type === "settings") {
