@@ -50,7 +50,7 @@ class NetDaemonApps extends LitElement {
                       <div class="dot">•</div>
                       ${dependency}
                     </div>`;
-                    ``;
+                    ;
                   })}
                 </div>`
               : ""}
@@ -81,15 +81,17 @@ class NetDaemonApps extends LitElement {
 
   private _toggleApp(app: App): void {
     appSettings(this.webSocket, app.id, { isEnabled: !app.isEnabled });
-    this.apps = this.apps.map((app) => {
-      app.isEnabled = !app.isEnabled;
-      return app;
+    this.apps = this.apps.map((_app) => {
+      if (_app.id === app.id) {
+        _app.isEnabled = !_app.isEnabled;
+      }
+      return _app;
     });
   }
 
   private _relativeTime(next: string): string {
     const nextEvent = new Date(next);
-    return timeAgo.format(nextEvent.getTime());
+    return String(timeAgo.format(nextEvent.getTime()));
   }
 
   private _goBack(): void {
